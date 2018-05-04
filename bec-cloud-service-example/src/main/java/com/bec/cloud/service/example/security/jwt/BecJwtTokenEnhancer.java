@@ -21,10 +21,6 @@ public class BecJwtTokenEnhancer implements TokenEnhancer{
 		Map<String, Object> info=new HashMap<String, Object>();
 		AuthUser authUser=authUserMapper.selectAuthUserByUsername(authentication.getName());
 		if (authUser!=null) {
-			info.put("custId",authUser.getCustId());
-			info.put("headPortrait",authUser.getHeadPortrait());
-			info.put("roleId",authUser.getRoleId());
-			info.put("sysId",authUser.getSysId());
 			info.put("userId",authUser.getUserId());
 			info.put("realName",authUser.getRealName());
 			info.put("userStatus",authUser.getUserStatus());

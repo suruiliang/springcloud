@@ -1,11 +1,12 @@
 package com.bec.cloud.service.example.model;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
 @Data
-public class AuthUser {
+public class UserInfo {
     private Long userId;
 
     private String custCode;
@@ -39,5 +40,9 @@ public class AuthUser {
     private Date opretionTime;
 
     private String userPhone;
+    
+    private List<AuthRole> authRoles;
+
+    private List<AuthOrganization> authOrganizations;
 
 }

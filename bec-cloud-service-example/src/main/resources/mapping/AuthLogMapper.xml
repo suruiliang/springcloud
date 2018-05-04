@@ -6,8 +6,8 @@
     <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="cust_num" jdbcType="VARCHAR" property="custNum" />
-    <result column="org_num" jdbcType="VARCHAR" property="orgNum" />
+    <result column="cust_code" jdbcType="VARCHAR" property="custCode" />
+    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
     <result column="version" jdbcType="VARCHAR" property="version" />
     <result column="mac" jdbcType="VARCHAR" property="mac" />
     <result column="soft_type" jdbcType="INTEGER" property="softType" />
@@ -19,7 +19,7 @@
     <result column="opretion_time" jdbcType="TIMESTAMP" property="opretionTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    log_id, login_ip, login_time, user_id, cust_num, org_num, version, mac, soft_type, 
+    log_id, login_ip, login_time, user_id, cust_code, org_code, version, mac, soft_type, 
     visit_module, user_name, cust_name, org_name, record_time, opretion_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -37,13 +37,13 @@
       select nextval('auth_log_id_seq')
     </selectKey>
     insert into public.auth_log (log_id, login_ip, login_time, 
-      user_id, cust_num, org_num, 
+      user_id, cust_code, org_code, 
       version, mac, soft_type, 
       visit_module, user_name, cust_name, 
       org_name, record_time, opretion_time
       )
     values (#{logId,jdbcType=BIGINT}, #{loginIp,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, 
-      #{userId,jdbcType=BIGINT}, #{custNum,jdbcType=VARCHAR}, #{orgNum,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{custCode,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, 
       #{version,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, #{softType,jdbcType=INTEGER}, 
       #{visitModule,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, 
       #{orgName,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP}, #{opretionTime,jdbcType=TIMESTAMP}
@@ -65,11 +65,11 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="custNum != null">
-        cust_num,
+      <if test="custCode != null">
+        cust_code,
       </if>
-      <if test="orgNum != null">
-        org_num,
+      <if test="orgCode != null">
+        org_code,
       </if>
       <if test="version != null">
         version,
@@ -110,11 +110,11 @@
       <if test="userId != null">
         #{userId,jdbcType=BIGINT},
       </if>
-      <if test="custNum != null">
-        #{custNum,jdbcType=VARCHAR},
+      <if test="custCode != null">
+        #{custCode,jdbcType=VARCHAR},
       </if>
-      <if test="orgNum != null">
-        #{orgNum,jdbcType=VARCHAR},
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
       </if>
       <if test="version != null">
         #{version,jdbcType=VARCHAR},
@@ -157,11 +157,11 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=BIGINT},
       </if>
-      <if test="custNum != null">
-        cust_num = #{custNum,jdbcType=VARCHAR},
+      <if test="custCode != null">
+        cust_code = #{custCode,jdbcType=VARCHAR},
       </if>
-      <if test="orgNum != null">
-        org_num = #{orgNum,jdbcType=VARCHAR},
+      <if test="orgCode != null">
+        org_code = #{orgCode,jdbcType=VARCHAR},
       </if>
       <if test="version != null">
         version = #{version,jdbcType=VARCHAR},
@@ -198,8 +198,8 @@
     set login_ip = #{loginIp,jdbcType=VARCHAR},
       login_time = #{loginTime,jdbcType=TIMESTAMP},
       user_id = #{userId,jdbcType=BIGINT},
-      cust_num = #{custNum,jdbcType=VARCHAR},
-      org_num = #{orgNum,jdbcType=VARCHAR},
+      cust_code = #{custCode,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
       version = #{version,jdbcType=VARCHAR},
       mac = #{mac,jdbcType=VARCHAR},
       soft_type = #{softType,jdbcType=INTEGER},

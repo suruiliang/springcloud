@@ -1,308 +1,245 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bec.cloud.service.example.mapper.AuthUserMapper">
-	<resultMap id="BaseResultMap" type="com.bec.cloud.service.example.model.AuthUser">
-		<id column="user_id" jdbcType="BIGINT" property="userId" />
-		<result column="cust_id" jdbcType="BIGINT" property="custId" />
-		<result column="sys_id" jdbcType="INTEGER" property="sysId" />
-		<result column="role_id" jdbcType="INTEGER" property="roleId" />
-		<result column="user_status" jdbcType="INTEGER" property="userStatus" />
-		<result column="failed_num" jdbcType="INTEGER" property="failedNum" />
-		<result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
-		<result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
-		<result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
-		<result column="user_name" jdbcType="VARCHAR" property="userName" />
-		<result column="real_name" jdbcType="VARCHAR" property="realName" />
-		<result column="user_passwd" jdbcType="VARCHAR" property="userPasswd" />
-		<result column="user_salt" jdbcType="VARCHAR" property="userSalt" />
-		<result column="user_identity" jdbcType="VARCHAR" property="userIdentity" />
-		<result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
-		<result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
-		<result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
-	</resultMap>
-	<sql id="Base_Column_List">
-		user_id, cust_id, sys_id, role_id, user_status, failed_num, record_time,
-		last_login_time,
-		login_time, user_name, real_name, user_passwd, user_salt, user_identity,
-		login_ip,
-		last_login_ip, head_portrait
-	</sql>
-	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from auth_user
-		where user_id = #{userId,jdbcType=BIGINT}
-	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from auth_user
-		where user_id = #{userId,jdbcType=BIGINT}
-	</delete>
-	<insert id="insert" parameterType="com.bec.cloud.service.example.model.AuthUser">
-		insert into auth_user (user_id, cust_id, sys_id,
-		role_id, user_status, failed_num,
-		record_time, last_login_time, login_time,
-		user_name, real_name, user_passwd,
-		user_salt, user_identity, login_ip,
-		last_login_ip, head_portrait)
-		values (#{userId,jdbcType=BIGINT}, #{custId,jdbcType=BIGINT},
-		#{sysId,jdbcType=INTEGER},
-		#{roleId,jdbcType=INTEGER}, #{userStatus,jdbcType=INTEGER}, #{failedNum,jdbcType=INTEGER},
-		#{recordTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP},
-		#{loginTime,jdbcType=TIMESTAMP},
-		#{userName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{userPasswd,jdbcType=VARCHAR},
-		#{userSalt,jdbcType=VARCHAR}, #{userIdentity,jdbcType=VARCHAR},
-		#{loginIp,jdbcType=VARCHAR},
-		#{lastLoginIp,jdbcType=VARCHAR}, #{headPortrait,jdbcType=VARCHAR})
-	</insert>
-	<insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.AuthUser">
-		insert into auth_user
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="userId != null">
-				user_id,
-			</if>
-			<if test="custId != null">
-				cust_id,
-			</if>
-			<if test="sysId != null">
-				sys_id,
-			</if>
-			<if test="roleId != null">
-				role_id,
-			</if>
-			<if test="userStatus != null">
-				user_status,
-			</if>
-			<if test="failedNum != null">
-				failed_num,
-			</if>
-			<if test="recordTime != null">
-				record_time,
-			</if>
-			<if test="lastLoginTime != null">
-				last_login_time,
-			</if>
-			<if test="loginTime != null">
-				login_time,
-			</if>
-			<if test="userName != null">
-				user_name,
-			</if>
-			<if test="realName != null">
-				real_name,
-			</if>
-			<if test="userPasswd != null">
-				user_passwd,
-			</if>
-			<if test="userSalt != null">
-				user_salt,
-			</if>
-			<if test="userIdentity != null">
-				user_identity,
-			</if>
-			<if test="loginIp != null">
-				login_ip,
-			</if>
-			<if test="lastLoginIp != null">
-				last_login_ip,
-			</if>
-			<if test="headPortrait != null">
-				head_portrait,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="userId != null">
-				#{userId,jdbcType=BIGINT},
-			</if>
-			<if test="custId != null">
-				#{custId,jdbcType=BIGINT},
-			</if>
-			<if test="sysId != null">
-				#{sysId,jdbcType=INTEGER},
-			</if>
-			<if test="roleId != null">
-				#{roleId,jdbcType=INTEGER},
-			</if>
-			<if test="userStatus != null">
-				#{userStatus,jdbcType=INTEGER},
-			</if>
-			<if test="failedNum != null">
-				#{failedNum,jdbcType=INTEGER},
-			</if>
-			<if test="recordTime != null">
-				#{recordTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="lastLoginTime != null">
-				#{lastLoginTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="loginTime != null">
-				#{loginTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="userName != null">
-				#{userName,jdbcType=VARCHAR},
-			</if>
-			<if test="realName != null">
-				#{realName,jdbcType=VARCHAR},
-			</if>
-			<if test="userPasswd != null">
-				#{userPasswd,jdbcType=VARCHAR},
-			</if>
-			<if test="userSalt != null">
-				#{userSalt,jdbcType=VARCHAR},
-			</if>
-			<if test="userIdentity != null">
-				#{userIdentity,jdbcType=VARCHAR},
-			</if>
-			<if test="loginIp != null">
-				#{loginIp,jdbcType=VARCHAR},
-			</if>
-			<if test="lastLoginIp != null">
-				#{lastLoginIp,jdbcType=VARCHAR},
-			</if>
-			<if test="headPortrait != null">
-				#{headPortrait,jdbcType=VARCHAR},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.bec.cloud.service.example.model.AuthUser">
-		update auth_user
-		<set>
-			<if test="custId != null">
-				cust_id = #{custId,jdbcType=BIGINT},
-			</if>
-			<if test="sysId != null">
-				sys_id = #{sysId,jdbcType=INTEGER},
-			</if>
-			<if test="roleId != null">
-				role_id = #{roleId,jdbcType=INTEGER},
-			</if>
-			<if test="userStatus != null">
-				user_status = #{userStatus,jdbcType=INTEGER},
-			</if>
-			<if test="failedNum != null">
-				failed_num = #{failedNum,jdbcType=INTEGER},
-			</if>
-			<if test="recordTime != null">
-				record_time = #{recordTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="lastLoginTime != null">
-				last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="loginTime != null">
-				login_time = #{loginTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="userName != null">
-				user_name = #{userName,jdbcType=VARCHAR},
-			</if>
-			<if test="realName != null">
-				real_name = #{realName,jdbcType=VARCHAR},
-			</if>
-			<if test="userPasswd != null">
-				user_passwd = #{userPasswd,jdbcType=VARCHAR},
-			</if>
-			<if test="userSalt != null">
-				user_salt = #{userSalt,jdbcType=VARCHAR},
-			</if>
-			<if test="userIdentity != null">
-				user_identity = #{userIdentity,jdbcType=VARCHAR},
-			</if>
-			<if test="loginIp != null">
-				login_ip = #{loginIp,jdbcType=VARCHAR},
-			</if>
-			<if test="lastLoginIp != null">
-				last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
-			</if>
-			<if test="headPortrait != null">
-				head_portrait = #{headPortrait,jdbcType=VARCHAR},
-			</if>
-		</set>
-		where user_id = #{userId,jdbcType=BIGINT}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="com.bec.cloud.service.example.model.AuthUser">
-		update auth_user
-		set cust_id = #{custId,jdbcType=BIGINT},
-		sys_id = #{sysId,jdbcType=INTEGER},
-		role_id = #{roleId,jdbcType=INTEGER},
-		user_status = #{userStatus,jdbcType=INTEGER},
-		failed_num = #{failedNum,jdbcType=INTEGER},
-		record_time = #{recordTime,jdbcType=TIMESTAMP},
-		last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
-		login_time = #{loginTime,jdbcType=TIMESTAMP},
-		user_name = #{userName,jdbcType=VARCHAR},
-		real_name = #{realName,jdbcType=VARCHAR},
-		user_passwd = #{userPasswd,jdbcType=VARCHAR},
-		user_salt = #{userSalt,jdbcType=VARCHAR},
-		user_identity = #{userIdentity,jdbcType=VARCHAR},
-		login_ip = #{loginIp,jdbcType=VARCHAR},
-		last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
-		head_portrait = #{headPortrait,jdbcType=VARCHAR}
-		where user_id = #{userId,jdbcType=BIGINT}
-	</update>
-
-	<select id="selectAuthUser" parameterType="com.bec.cloud.service.example.model.AuthUser"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from auth_user
-		<where>
-			<if test="userId != null">
-				and user_id = #{userId,jdbcType=BIGINT}
-			</if>
-			<if test="custId != null">
-				and cust_id = #{custId,jdbcType=BIGINT}
-			</if>
-			<if test="sysId != null">
-				and sys_id = #{sysId,jdbcType=INTEGER}
-			</if>
-			<if test="roleId != null">
-				and role_id = #{roleId,jdbcType=INTEGER}
-			</if>
-			<if test="userStatus != null">
-				and user_status = #{userStatus,jdbcType=INTEGER}
-			</if>
-			<if test="failedNum != null">
-				and failed_num = #{failedNum,jdbcType=INTEGER}
-			</if>
-			<if test="recordTime != null">
-				and record_time = #{recordTime,jdbcType=TIMESTAMP}
-			</if>
-			<if test="lastLoginTime != null">
-				and last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
-			</if>
-			<if test="loginTime != null">
-				and login_time = #{loginTime,jdbcType=TIMESTAMP}
-			</if>
-			<if test="userName != null">
-				and user_name = #{userName,jdbcType=VARCHAR}
-			</if>
-			<if test="realName != null">
-				and real_name = #{realName,jdbcType=VARCHAR}
-			</if>
-			<if test="userPasswd != null">
-				and user_passwd = #{userPasswd,jdbcType=VARCHAR}
-			</if>
-			<if test="userSalt != null">
-				and user_salt = #{userSalt,jdbcType=VARCHAR}
-			</if>
-			<if test="userIdentity != null">
-				and user_identity = #{userIdentity,jdbcType=VARCHAR}
-			</if>
-			<if test="loginIp != null">
-				and login_ip = #{loginIp,jdbcType=VARCHAR}
-			</if>
-			<if test="lastLoginIp != null">
-				and last_login_ip = #{lastLoginIp,jdbcType=VARCHAR}
-			</if>
-			<if test="headPortrait != null">
-				and head_portrait = #{headPortrait,jdbcType=VARCHAR}
-			</if>
-		</where>
-	</select>
-	<select id="selectAuthUserByUsername" parameterType="java.lang.String"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from auth_user
-		where user_name = #{userName,jdbcType=VARCHAR}
-	</select>
+  <resultMap id="BaseResultMap" type="com.bec.cloud.service.example.model.AuthUser">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="cust_code" jdbcType="VARCHAR" property="custCode" />
+    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_old_name" jdbcType="VARCHAR" property="userOldName" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="user_passwd" jdbcType="VARCHAR" property="userPasswd" />
+    <result column="user_identity" jdbcType="VARCHAR" property="userIdentity" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="user_status" jdbcType="INTEGER" property="userStatus" />
+    <result column="del_status" jdbcType="INTEGER" property="delStatus" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="entry_user_id" jdbcType="BIGINT" property="entryUserId" />
+    <result column="operation_user_id" jdbcType="BIGINT" property="operationUserId" />
+    <result column="opretion_time" jdbcType="TIMESTAMP" property="opretionTime" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, cust_code, org_code, user_name, user_old_name, real_name, user_passwd, user_identity, 
+    login_ip, login_time, user_status, del_status, record_time, entry_user_id, operation_user_id, 
+    opretion_time, user_phone
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from public.auth_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from public.auth_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bec.cloud.service.example.model.AuthUser">
+    <selectKey keyProperty="userId" order="BEFORE" resultType="java.lang.Long">
+      select nextval('auth_user_id_seq')
+    </selectKey>
+    insert into public.auth_user (user_id, cust_code, org_code, 
+      user_name, user_old_name, real_name, 
+      user_passwd, user_identity, login_ip, 
+      login_time, user_status, del_status, 
+      record_time, entry_user_id, operation_user_id, 
+      opretion_time, user_phone)
+    values (#{userId,jdbcType=BIGINT}, #{custCode,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userOldName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{userPasswd,jdbcType=VARCHAR}, #{userIdentity,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, 
+      #{loginTime,jdbcType=TIMESTAMP}, #{userStatus,jdbcType=INTEGER}, #{delStatus,jdbcType=INTEGER}, 
+      #{recordTime,jdbcType=TIMESTAMP}, #{entryUserId,jdbcType=BIGINT}, #{operationUserId,jdbcType=BIGINT}, 
+      #{opretionTime,jdbcType=TIMESTAMP}, #{userPhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.AuthUser">
+    <selectKey keyProperty="userId" order="BEFORE" resultType="java.lang.Long">
+      select nextval('auth_user_id_seq')
+    </selectKey>
+    insert into public.auth_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      user_id,
+      <if test="custCode != null">
+        cust_code,
+      </if>
+      <if test="orgCode != null">
+        org_code,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userOldName != null">
+        user_old_name,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="userPasswd != null">
+        user_passwd,
+      </if>
+      <if test="userIdentity != null">
+        user_identity,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="loginTime != null">
+        login_time,
+      </if>
+      <if test="userStatus != null">
+        user_status,
+      </if>
+      <if test="delStatus != null">
+        del_status,
+      </if>
+      <if test="recordTime != null">
+        record_time,
+      </if>
+      <if test="entryUserId != null">
+        entry_user_id,
+      </if>
+      <if test="operationUserId != null">
+        operation_user_id,
+      </if>
+      <if test="opretionTime != null">
+        opretion_time,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{userId,jdbcType=BIGINT},
+      <if test="custCode != null">
+        #{custCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userOldName != null">
+        #{userOldName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPasswd != null">
+        #{userPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdentity != null">
+        #{userIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="delStatus != null">
+        #{delStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entryUserId != null">
+        #{entryUserId,jdbcType=BIGINT},
+      </if>
+      <if test="operationUserId != null">
+        #{operationUserId,jdbcType=BIGINT},
+      </if>
+      <if test="opretionTime != null">
+        #{opretionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bec.cloud.service.example.model.AuthUser">
+    update public.auth_user
+    <set>
+      <if test="custCode != null">
+        cust_code = #{custCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userOldName != null">
+        user_old_name = #{userOldName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPasswd != null">
+        user_passwd = #{userPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdentity != null">
+        user_identity = #{userIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="delStatus != null">
+        del_status = #{delStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recordTime != null">
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entryUserId != null">
+        entry_user_id = #{entryUserId,jdbcType=BIGINT},
+      </if>
+      <if test="operationUserId != null">
+        operation_user_id = #{operationUserId,jdbcType=BIGINT},
+      </if>
+      <if test="opretionTime != null">
+        opretion_time = #{opretionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bec.cloud.service.example.model.AuthUser">
+    update public.auth_user
+    set cust_code = #{custCode,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_old_name = #{userOldName,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      user_passwd = #{userPasswd,jdbcType=VARCHAR},
+      user_identity = #{userIdentity,jdbcType=VARCHAR},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      user_status = #{userStatus,jdbcType=INTEGER},
+      del_status = #{delStatus,jdbcType=INTEGER},
+      record_time = #{recordTime,jdbcType=TIMESTAMP},
+      entry_user_id = #{entryUserId,jdbcType=BIGINT},
+      operation_user_id = #{operationUserId,jdbcType=BIGINT},
+      opretion_time = #{opretionTime,jdbcType=TIMESTAMP},
+      user_phone = #{userPhone,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectAuthUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from public.auth_user
+    where user_name = #{userName,jdbcType=VARCHAR} and user_status=0 and del_status=0 
+    limit 1
+  </select>
 </mapper>

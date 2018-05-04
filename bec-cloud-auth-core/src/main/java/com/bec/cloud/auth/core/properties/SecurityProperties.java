@@ -21,5 +21,7 @@ public class SecurityProperties {
 	private Oauth2Properties oauth2=new Oauth2Properties();
 	
 	private OssProperties oss=new OssProperties();
+	
+	private String visitModule="bec";
 
 }

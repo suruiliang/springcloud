@@ -1,18 +1,15 @@
 package com.bec.cloud.service.example.security.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.authentication.dao.SaltSource;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 
 import com.bec.cloud.service.example.security.service.BecClientDetailsService;
-import com.bec.cloud.service.example.security.service.BecSaltSource;
 import com.bec.cloud.service.example.security.service.BecUserDetailsService;
-import com.bec.cloud.service.example.security.service.ShiroHashPasswordEncoder;
 
 
 /**
@@ -26,14 +23,8 @@ import com.bec.cloud.service.example.security.service.ShiroHashPasswordEncoder;
 public class BecSecurityBeanConfig {
 	
 	@Bean
-	@ConditionalOnMissingBean(PasswordEncoder.class)
 	public PasswordEncoder passwordEncoder(){
-		return new ShiroHashPasswordEncoder();
-	}
-	
-	@Bean
-	public SaltSource becSaltSource(){
-		return new BecSaltSource();
+		return new BCryptPasswordEncoder();
 	}
 	
 	@Bean
@@ -41,7 +32,6 @@ public class BecSecurityBeanConfig {
 		DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
 		daoAuthenticationProvider.setUserDetailsService(userDetailsService());
 		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-		daoAuthenticationProvider.setSaltSource(becSaltSource());
 		return daoAuthenticationProvider;
 	}
 	

@@ -2,6 +2,7 @@ package com.bec.cloud.service.example.security.authentication;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,13 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.bec.cloud.auth.core.properties.SecurityProperties;
 import com.bec.cloud.auth.core.utils.ResultUtil;
+import com.bec.cloud.service.example.mapper.AuthLogMapper;
+import com.bec.cloud.service.example.model.AuthLog;
+import com.bec.cloud.service.example.model.AuthOrganization;
+import com.bec.cloud.service.example.model.UserInfo;
+import com.bec.cloud.service.example.utils.UserInfoUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component(value="becAuthenticationSuccessHandler")
@@ -37,6 +44,12 @@ public class BecAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 	private ClientDetailsService clientDetailsService;
 	@Autowired
 	private AuthorizationServerTokenServices authorizationServerTokenServices;
+	@Autowired
+	private SecurityProperties securityProperties;
+	@Autowired
+	private UserInfoUtil userInfoUtil;
+	@Autowired
+	private AuthLogMapper authLogMapper;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -55,27 +68,57 @@ public class BecAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 
 		String clientId = tokens[0];
 		String clientSecret = tokens[1];
-		
+
 		ClientDetails clientDetails=clientDetailsService.loadClientByClientId(clientId);
-		
+
 		if (clientDetails==null) {
 			throw new UnapprovedClientAuthenticationException("clientId对应的配置信息不存在:"+clientId);
 		}else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
 			throw new UnapprovedClientAuthenticationException("clientSecret不匹配:"+clientId);
 		}
-		
+
 		TokenRequest tokenRequest=new TokenRequest(Collections.emptyMap(), clientId, clientDetails.getScope(), "custom");
-		
+
 		OAuth2Request oAuth2Request=tokenRequest.createOAuth2Request(clientDetails);
-		
+
 		OAuth2Authentication oAuth2Authentication=new OAuth2Authentication(oAuth2Request, authentication);
-		
+
 		OAuth2AccessToken token=authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
-		//TODO 登录日志
+		//插入登录日志
+		try {
+			insertAuthLog(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("插入登录日志报错！");
+		}
 		response.setContentType("application/json;charset=UTF-8");
-//		response.getWriter().write(objectMapper.writeValueAsString(token));
+		//		response.getWriter().write(objectMapper.writeValueAsString(token));
 		response.getWriter().write(objectMapper.writeValueAsString(ResultUtil.success(token)));
 
+	}	
+	private void insertAuthLog(HttpServletRequest request) {
+		AuthLog authLog=new AuthLog();
+		UserInfo userInfo=userInfoUtil.userInfo();
+		authLog.setCustCode(userInfo.getCustCode());
+		authLog.setCustName("");// TODO customer
+		authLog.setLoginIp(request.getRemoteHost());
+		authLog.setLoginTime(new Date());
+		authLog.setMac(request.getParameter("mac"));
+		authLog.setOrgCode(userInfo.getOrgCode());
+		authLog.setOrgName("");
+		if (userInfo.getAuthOrganizations()!=null&&userInfo.getAuthOrganizations().size()>0) {
+			String orgName="";
+			for (AuthOrganization ao : userInfo.getAuthOrganizations()) {
+				orgName.join(",", ao.getOrgName());
+			}
+			authLog.setOrgName(orgName.substring(1));
+		}
+		authLog.setSoftType(Integer.valueOf(request.getParameter("softType")+""));
+		authLog.setUserId(userInfo.getUserId());
+		authLog.setUserName(userInfo.getUserName());
+		authLog.setVersion(request.getParameter("version"));
+		authLog.setVisitModule(securityProperties.getVisitModule());
+		authLogMapper.insertSelective(authLog);
 	}
 	private String[] extractAndDecodeHeader(String header, HttpServletRequest request)
 			throws IOException {

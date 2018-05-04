@@ -1,7 +1,10 @@
 package com.bec.cloud.service.example.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.bec.cloud.service.example.model.AuthLog;
 
+@Mapper
 public interface AuthLogMapper {
     int deleteByPrimaryKey(Long logId);
 

@@ -1,7 +1,5 @@
 package com.bec.cloud.service.example.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.bec.cloud.service.example.model.AuthUser;
@@ -19,8 +17,6 @@ public interface AuthUserMapper {
     int updateByPrimaryKeySelective(AuthUser record);
 
     int updateByPrimaryKey(AuthUser record);
-
-	List<AuthUser> selectAuthUser(AuthUser authUser);
 
 	AuthUser selectAuthUserByUsername(String username);
 }
