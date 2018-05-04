@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bec.cloud.service.example.mapper.AuthClientDetailsMapper">
+  <resultMap id="BaseResultMap" type="com.bec.cloud.service.example.model.AuthClientDetails">
+    <id column="client_id" jdbcType="VARCHAR" property="clientId" />
+    <result column="resource_ids" jdbcType="VARCHAR" property="resourceIds" />
+    <result column="secret_required" jdbcType="BIT" property="secretRequired" />
+    <result column="client_secret" jdbcType="VARCHAR" property="clientSecret" />
+    <result column="scoped" jdbcType="BIT" property="scoped" />
+    <result column="scope" jdbcType="VARCHAR" property="scope" />
+    <result column="authorized_grant_types" jdbcType="VARCHAR" property="authorizedGrantTypes" />
+    <result column="registered_redirect_uri" jdbcType="VARCHAR" property="registeredRedirectUri" />
+    <result column="authorities" jdbcType="VARCHAR" property="authorities" />
+    <result column="refresh_token_validity_seconds" jdbcType="INTEGER" property="refreshTokenValiditySeconds" />
+    <result column="access_token_validity_seconds" jdbcType="INTEGER" property="accessTokenValiditySeconds" />
+    <result column="auto_approve" jdbcType="BIT" property="autoApprove" />
+    <result column="additional_information" jdbcType="VARCHAR" property="additionalInformation" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    client_id, resource_ids, secret_required, client_secret, scoped, scope, authorized_grant_types, 
+    registered_redirect_uri, authorities, refresh_token_validity_seconds, access_token_validity_seconds, 
+    auto_approve, additional_information, record_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from auth_client_details
+    where client_id = #{clientId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from auth_client_details
+    where client_id = #{clientId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bec.cloud.service.example.model.AuthClientDetails">
+    insert into auth_client_details (client_id, resource_ids, secret_required, 
+      client_secret, scoped, scope, 
+      authorized_grant_types, registered_redirect_uri, 
+      authorities, refresh_token_validity_seconds, 
+      access_token_validity_seconds, auto_approve, additional_information, 
+      record_time)
+    values (#{clientId,jdbcType=VARCHAR}, #{resourceIds,jdbcType=VARCHAR}, #{secretRequired,jdbcType=BIT}, 
+      #{clientSecret,jdbcType=VARCHAR}, #{scoped,jdbcType=BIT}, #{scope,jdbcType=VARCHAR}, 
+      #{authorizedGrantTypes,jdbcType=VARCHAR}, #{registeredRedirectUri,jdbcType=VARCHAR}, 
+      #{authorities,jdbcType=VARCHAR}, #{refreshTokenValiditySeconds,jdbcType=INTEGER}, 
+      #{accessTokenValiditySeconds,jdbcType=INTEGER}, #{autoApprove,jdbcType=BIT}, #{additionalInformation,jdbcType=VARCHAR}, 
+      #{recordTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.AuthClientDetails">
+    insert into auth_client_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clientId != null">
+        client_id,
+      </if>
+      <if test="resourceIds != null">
+        resource_ids,
+      </if>
+      <if test="secretRequired != null">
+        secret_required,
+      </if>
+      <if test="clientSecret != null">
+        client_secret,
+      </if>
+      <if test="scoped != null">
+        scoped,
+      </if>
+      <if test="scope != null">
+        scope,
+      </if>
+      <if test="authorizedGrantTypes != null">
+        authorized_grant_types,
+      </if>
+      <if test="registeredRedirectUri != null">
+        registered_redirect_uri,
+      </if>
+      <if test="authorities != null">
+        authorities,
+      </if>
+      <if test="refreshTokenValiditySeconds != null">
+        refresh_token_validity_seconds,
+      </if>
+      <if test="accessTokenValiditySeconds != null">
+        access_token_validity_seconds,
+      </if>
+      <if test="autoApprove != null">
+        auto_approve,
+      </if>
+      <if test="additionalInformation != null">
+        additional_information,
+      </if>
+      <if test="recordTime != null">
+        record_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clientId != null">
+        #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceIds != null">
+        #{resourceIds,jdbcType=VARCHAR},
+      </if>
+      <if test="secretRequired != null">
+        #{secretRequired,jdbcType=BIT},
+      </if>
+      <if test="clientSecret != null">
+        #{clientSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="scoped != null">
+        #{scoped,jdbcType=BIT},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizedGrantTypes != null">
+        #{authorizedGrantTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredRedirectUri != null">
+        #{registeredRedirectUri,jdbcType=VARCHAR},
+      </if>
+      <if test="authorities != null">
+        #{authorities,jdbcType=VARCHAR},
+      </if>
+      <if test="refreshTokenValiditySeconds != null">
+        #{refreshTokenValiditySeconds,jdbcType=INTEGER},
+      </if>
+      <if test="accessTokenValiditySeconds != null">
+        #{accessTokenValiditySeconds,jdbcType=INTEGER},
+      </if>
+      <if test="autoApprove != null">
+        #{autoApprove,jdbcType=BIT},
+      </if>
+      <if test="additionalInformation != null">
+        #{additionalInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bec.cloud.service.example.model.AuthClientDetails">
+    update auth_client_details
+    <set>
+      <if test="resourceIds != null">
+        resource_ids = #{resourceIds,jdbcType=VARCHAR},
+      </if>
+      <if test="secretRequired != null">
+        secret_required = #{secretRequired,jdbcType=BIT},
+      </if>
+      <if test="clientSecret != null">
+        client_secret = #{clientSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="scoped != null">
+        scoped = #{scoped,jdbcType=BIT},
+      </if>
+      <if test="scope != null">
+        scope = #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="authorizedGrantTypes != null">
+        authorized_grant_types = #{authorizedGrantTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredRedirectUri != null">
+        registered_redirect_uri = #{registeredRedirectUri,jdbcType=VARCHAR},
+      </if>
+      <if test="authorities != null">
+        authorities = #{authorities,jdbcType=VARCHAR},
+      </if>
+      <if test="refreshTokenValiditySeconds != null">
+        refresh_token_validity_seconds = #{refreshTokenValiditySeconds,jdbcType=INTEGER},
+      </if>
+      <if test="accessTokenValiditySeconds != null">
+        access_token_validity_seconds = #{accessTokenValiditySeconds,jdbcType=INTEGER},
+      </if>
+      <if test="autoApprove != null">
+        auto_approve = #{autoApprove,jdbcType=BIT},
+      </if>
+      <if test="additionalInformation != null">
+        additional_information = #{additionalInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where client_id = #{clientId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bec.cloud.service.example.model.AuthClientDetails">
+    update auth_client_details
+    set resource_ids = #{resourceIds,jdbcType=VARCHAR},
+      secret_required = #{secretRequired,jdbcType=BIT},
+      client_secret = #{clientSecret,jdbcType=VARCHAR},
+      scoped = #{scoped,jdbcType=BIT},
+      scope = #{scope,jdbcType=VARCHAR},
+      authorized_grant_types = #{authorizedGrantTypes,jdbcType=VARCHAR},
+      registered_redirect_uri = #{registeredRedirectUri,jdbcType=VARCHAR},
+      authorities = #{authorities,jdbcType=VARCHAR},
+      refresh_token_validity_seconds = #{refreshTokenValiditySeconds,jdbcType=INTEGER},
+      access_token_validity_seconds = #{accessTokenValiditySeconds,jdbcType=INTEGER},
+      auto_approve = #{autoApprove,jdbcType=BIT},
+      additional_information = #{additionalInformation,jdbcType=VARCHAR},
+      record_time = #{recordTime,jdbcType=TIMESTAMP}
+    where client_id = #{clientId,jdbcType=VARCHAR}
+  </update>
+</mapper>
