@@ -1,6 +1,7 @@
 package com.bec.cloud.service.example;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description 类描述
  */
 @SpringBootApplication(scanBasePackages="com.bec")
+@EnableAutoConfiguration
 //@EnableAutoConfiguration
 //@EnableEurekaClient
 //@EnableHystrix
