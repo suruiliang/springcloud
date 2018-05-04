@@ -2,8 +2,11 @@ package com.bec.cloud.service.example.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.bec.cloud.service.example.model.AuthOrganization;
 
+@Mapper
 public interface AuthOrganizationMapper {
     int deleteByPrimaryKey(Long orgId);
 
