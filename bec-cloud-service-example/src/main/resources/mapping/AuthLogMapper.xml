@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bec.cloud.service.example.mapper.AuthLogMapper">
+  <resultMap id="BaseResultMap" type="com.bec.cloud.service.example.model.AuthLog">
+    <id column="log_id" jdbcType="BIGINT" property="logId" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="cust_num" jdbcType="VARCHAR" property="custNum" />
+    <result column="org_num" jdbcType="VARCHAR" property="orgNum" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="soft_type" jdbcType="INTEGER" property="softType" />
+    <result column="visit_module" jdbcType="VARCHAR" property="visitModule" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="opretion_time" jdbcType="TIMESTAMP" property="opretionTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    log_id, login_ip, login_time, user_id, cust_num, org_num, version, mac, soft_type, 
+    visit_module, user_name, cust_name, org_name, record_time, opretion_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from public.auth_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from public.auth_log
+    where log_id = #{logId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bec.cloud.service.example.model.AuthLog">
+    <selectKey keyProperty="logId" order="BEFORE" resultType="java.lang.Long">
+      select nextval('auth_log_id_seq')
+    </selectKey>
+    insert into public.auth_log (log_id, login_ip, login_time, 
+      user_id, cust_num, org_num, 
+      version, mac, soft_type, 
+      visit_module, user_name, cust_name, 
+      org_name, record_time, opretion_time
+      )
+    values (#{logId,jdbcType=BIGINT}, #{loginIp,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=BIGINT}, #{custNum,jdbcType=VARCHAR}, #{orgNum,jdbcType=VARCHAR}, 
+      #{version,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, #{softType,jdbcType=INTEGER}, 
+      #{visitModule,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, 
+      #{orgName,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP}, #{opretionTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.AuthLog">
+    <selectKey keyProperty="logId" order="BEFORE" resultType="java.lang.Long">
+      select nextval('auth_log_id_seq')
+    </selectKey>
+    insert into public.auth_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      log_id,
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="loginTime != null">
+        login_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="custNum != null">
+        cust_num,
+      </if>
+      <if test="orgNum != null">
+        org_num,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="mac != null">
+        mac,
+      </if>
+      <if test="softType != null">
+        soft_type,
+      </if>
+      <if test="visitModule != null">
+        visit_module,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="custName != null">
+        cust_name,
+      </if>
+      <if test="orgName != null">
+        org_name,
+      </if>
+      <if test="recordTime != null">
+        record_time,
+      </if>
+      <if test="opretionTime != null">
+        opretion_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{logId,jdbcType=BIGINT},
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="custNum != null">
+        #{custNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNum != null">
+        #{orgNum,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="softType != null">
+        #{softType,jdbcType=INTEGER},
+      </if>
+      <if test="visitModule != null">
+        #{visitModule,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null">
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opretionTime != null">
+        #{opretionTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bec.cloud.service.example.model.AuthLog">
+    update public.auth_log
+    <set>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="custNum != null">
+        cust_num = #{custNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNum != null">
+        org_num = #{orgNum,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null">
+        mac = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="softType != null">
+        soft_type = #{softType,jdbcType=INTEGER},
+      </if>
+      <if test="visitModule != null">
+        visit_module = #{visitModule,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        cust_name = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null">
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null">
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opretionTime != null">
+        opretion_time = #{opretionTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bec.cloud.service.example.model.AuthLog">
+    update public.auth_log
+    set login_ip = #{loginIp,jdbcType=VARCHAR},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT},
+      cust_num = #{custNum,jdbcType=VARCHAR},
+      org_num = #{orgNum,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      mac = #{mac,jdbcType=VARCHAR},
+      soft_type = #{softType,jdbcType=INTEGER},
+      visit_module = #{visitModule,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      cust_name = #{custName,jdbcType=VARCHAR},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      record_time = #{recordTime,jdbcType=TIMESTAMP},
+      opretion_time = #{opretionTime,jdbcType=TIMESTAMP}
+    where log_id = #{logId,jdbcType=BIGINT}
+  </update>
+</mapper>
