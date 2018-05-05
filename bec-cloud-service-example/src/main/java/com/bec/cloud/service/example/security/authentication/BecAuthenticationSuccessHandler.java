@@ -29,8 +29,11 @@ import org.springframework.stereotype.Component;
 import com.bec.cloud.auth.core.properties.SecurityProperties;
 import com.bec.cloud.auth.core.utils.ResultUtil;
 import com.bec.cloud.service.example.mapper.AuthLogMapper;
+import com.bec.cloud.service.example.mapper.AuthUserMapper;
 import com.bec.cloud.service.example.model.AuthLog;
-import com.bec.cloud.service.example.model.AuthOrganization;
+import com.bec.cloud.service.example.model.AuthUser;
+import com.bec.cloud.service.example.model.Customer;
+import com.bec.cloud.service.example.model.Organization;
 import com.bec.cloud.service.example.model.UserInfo;
 import com.bec.cloud.service.example.utils.UserInfoUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,6 +53,8 @@ public class BecAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 	private UserInfoUtil userInfoUtil;
 	@Autowired
 	private AuthLogMapper authLogMapper;
+	@Autowired
+	private AuthUserMapper authUserMapper;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -84,7 +89,7 @@ public class BecAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 		OAuth2Authentication oAuth2Authentication=new OAuth2Authentication(oAuth2Request, authentication);
 
 		OAuth2AccessToken token=authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
-		//插入登录日志
+		//插入登录日志,并更新用户表登录时间
 		try {
 			insertAuthLog(request);
 		} catch (Exception e) {
@@ -97,19 +102,27 @@ public class BecAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 
 	}	
 	private void insertAuthLog(HttpServletRequest request) {
+		//插入登录日志
 		AuthLog authLog=new AuthLog();
 		UserInfo userInfo=userInfoUtil.userInfo();
 		authLog.setCustCode(userInfo.getCustCode());
-		authLog.setCustName("");// TODO customer
+		authLog.setCustName("");
+		if (userInfo.getCustomers()!=null&&userInfo.getCustomers().size()>0) {
+			StringBuffer custName=new StringBuffer();
+			for (Customer c : userInfo.getCustomers()) {
+				custName.append(","+c.getCustName());
+			}
+			authLog.setCustName(custName.substring(1));
+		}
 		authLog.setLoginIp(request.getRemoteHost());
 		authLog.setLoginTime(new Date());
 		authLog.setMac(request.getParameter("mac"));
 		authLog.setOrgCode(userInfo.getOrgCode());
 		authLog.setOrgName("");
-		if (userInfo.getAuthOrganizations()!=null&&userInfo.getAuthOrganizations().size()>0) {
-			String orgName="";
-			for (AuthOrganization ao : userInfo.getAuthOrganizations()) {
-				orgName.join(",", ao.getOrgName());
+		if (userInfo.getOrganizations()!=null&&userInfo.getOrganizations().size()>0) {
+			StringBuffer orgName=new StringBuffer();;
+			for (Organization ao : userInfo.getOrganizations()) {
+				orgName.append(","+ao.getOrgName());
 			}
 			authLog.setOrgName(orgName.substring(1));
 		}
@@ -119,6 +132,12 @@ public class BecAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 		authLog.setVersion(request.getParameter("version"));
 		authLog.setVisitModule(securityProperties.getVisitModule());
 		authLogMapper.insertSelective(authLog);
+		//更新用户表登录时间
+		AuthUser authUser=new AuthUser();
+		authUser.setUserId(userInfo.getUserId());
+		authUser.setLoginIp(request.getRemoteHost());
+		authUser.setLoginTime(new Date());
+		authUserMapper.updateByPrimaryKeySelective(authUser);
 	}
 	private String[] extractAndDecodeHeader(String header, HttpServletRequest request)
 			throws IOException {

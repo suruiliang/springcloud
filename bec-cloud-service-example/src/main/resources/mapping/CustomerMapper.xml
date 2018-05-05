@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bec.cloud.service.example.mapper.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.bec.cloud.service.example.model.Customer">
+    <id column="cust_id" jdbcType="BIGINT" property="custId" />
+    <result column="cust_pid" jdbcType="BIGINT" property="custPid" />
+    <result column="cust_iid" jdbcType="VARCHAR" property="custIid" />
+    <result column="cust_code" jdbcType="VARCHAR" property="custCode" />
+    <result column="p_cust_code" jdbcType="VARCHAR" property="pCustCode" />
+    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+    <result column="cust_mcc" jdbcType="VARCHAR" property="custMcc" />
+    <result column="cust_level" jdbcType="INTEGER" property="custLevel" />
+    <result column="cust_attr" jdbcType="INTEGER" property="custAttr" />
+    <result column="cust_phone" jdbcType="VARCHAR" property="custPhone" />
+    <result column="cust_old_phone" jdbcType="VARCHAR" property="custOldPhone" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="cust_abbr" jdbcType="VARCHAR" property="custAbbr" />
+    <result column="cust_company_name" jdbcType="VARCHAR" property="custCompanyName" />
+    <result column="cust_address" jdbcType="VARCHAR" property="custAddress" />
+    <result column="county_code" jdbcType="INTEGER" property="countyCode" />
+    <result column="cust_email" jdbcType="VARCHAR" property="custEmail" />
+    <result column="legal_name" jdbcType="VARCHAR" property="legalName" />
+    <result column="legal_identity" jdbcType="VARCHAR" property="legalIdentity" />
+    <result column="legal_identity_date" jdbcType="VARCHAR" property="legalIdentityDate" />
+    <result column="cust_status" jdbcType="INTEGER" property="custStatus" />
+    <result column="modify_status" jdbcType="INTEGER" property="modifyStatus" />
+    <result column="del_status" jdbcType="INTEGER" property="delStatus" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="entry_user_id" jdbcType="BIGINT" property="entryUserId" />
+    <result column="operation_user_id" jdbcType="BIGINT" property="operationUserId" />
+    <result column="operation_time" jdbcType="TIMESTAMP" property="operationTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cust_id, cust_pid, cust_iid, cust_code, p_cust_code, org_code, cust_mcc, cust_level, 
+    cust_attr, cust_phone, cust_old_phone, cust_name, cust_abbr, cust_company_name, cust_address, 
+    county_code, cust_email, legal_name, legal_identity, legal_identity_date, cust_status, 
+    modify_status, del_status, record_time, entry_user_id, operation_user_id, operation_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from public.customer
+    where cust_id = #{custId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from public.customer
+    where cust_id = #{custId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bec.cloud.service.example.model.Customer">
+    <selectKey keyProperty="custId" order="BEFORE" resultType="java.lang.Long">
+      select nextval('customer_id_seq')
+    </selectKey>
+    insert into public.customer (cust_id, cust_pid, cust_iid, 
+      cust_code, p_cust_code, org_code, 
+      cust_mcc, cust_level, cust_attr, 
+      cust_phone, cust_old_phone, cust_name, 
+      cust_abbr, cust_company_name, cust_address, 
+      county_code, cust_email, legal_name, 
+      legal_identity, legal_identity_date, cust_status, 
+      modify_status, del_status, record_time, 
+      entry_user_id, operation_user_id, operation_time
+      )
+    values (#{custId,jdbcType=BIGINT}, #{custPid,jdbcType=BIGINT}, #{custIid,jdbcType=VARCHAR}, 
+      #{custCode,jdbcType=VARCHAR}, #{pCustCode,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, 
+      #{custMcc,jdbcType=VARCHAR}, #{custLevel,jdbcType=INTEGER}, #{custAttr,jdbcType=INTEGER}, 
+      #{custPhone,jdbcType=VARCHAR}, #{custOldPhone,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, 
+      #{custAbbr,jdbcType=VARCHAR}, #{custCompanyName,jdbcType=VARCHAR}, #{custAddress,jdbcType=VARCHAR}, 
+      #{countyCode,jdbcType=INTEGER}, #{custEmail,jdbcType=VARCHAR}, #{legalName,jdbcType=VARCHAR}, 
+      #{legalIdentity,jdbcType=VARCHAR}, #{legalIdentityDate,jdbcType=VARCHAR}, #{custStatus,jdbcType=INTEGER}, 
+      #{modifyStatus,jdbcType=INTEGER}, #{delStatus,jdbcType=INTEGER}, #{recordTime,jdbcType=TIMESTAMP}, 
+      #{entryUserId,jdbcType=BIGINT}, #{operationUserId,jdbcType=BIGINT}, #{operationTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.Customer">
+    <selectKey keyProperty="custId" order="BEFORE" resultType="java.lang.Long">
+      select nextval('customer_id_seq')
+    </selectKey>
+    insert into public.customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      cust_id,
+      <if test="custPid != null">
+        cust_pid,
+      </if>
+      <if test="custIid != null">
+        cust_iid,
+      </if>
+      <if test="custCode != null">
+        cust_code,
+      </if>
+      <if test="pCustCode != null">
+        p_cust_code,
+      </if>
+      <if test="orgCode != null">
+        org_code,
+      </if>
+      <if test="custMcc != null">
+        cust_mcc,
+      </if>
+      <if test="custLevel != null">
+        cust_level,
+      </if>
+      <if test="custAttr != null">
+        cust_attr,
+      </if>
+      <if test="custPhone != null">
+        cust_phone,
+      </if>
+      <if test="custOldPhone != null">
+        cust_old_phone,
+      </if>
+      <if test="custName != null">
+        cust_name,
+      </if>
+      <if test="custAbbr != null">
+        cust_abbr,
+      </if>
+      <if test="custCompanyName != null">
+        cust_company_name,
+      </if>
+      <if test="custAddress != null">
+        cust_address,
+      </if>
+      <if test="countyCode != null">
+        county_code,
+      </if>
+      <if test="custEmail != null">
+        cust_email,
+      </if>
+      <if test="legalName != null">
+        legal_name,
+      </if>
+      <if test="legalIdentity != null">
+        legal_identity,
+      </if>
+      <if test="legalIdentityDate != null">
+        legal_identity_date,
+      </if>
+      <if test="custStatus != null">
+        cust_status,
+      </if>
+      <if test="modifyStatus != null">
+        modify_status,
+      </if>
+      <if test="delStatus != null">
+        del_status,
+      </if>
+      <if test="recordTime != null">
+        record_time,
+      </if>
+      <if test="entryUserId != null">
+        entry_user_id,
+      </if>
+      <if test="operationUserId != null">
+        operation_user_id,
+      </if>
+      <if test="operationTime != null">
+        operation_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{custId,jdbcType=BIGINT},
+      <if test="custPid != null">
+        #{custPid,jdbcType=BIGINT},
+      </if>
+      <if test="custIid != null">
+        #{custIid,jdbcType=VARCHAR},
+      </if>
+      <if test="custCode != null">
+        #{custCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pCustCode != null">
+        #{pCustCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="custMcc != null">
+        #{custMcc,jdbcType=VARCHAR},
+      </if>
+      <if test="custLevel != null">
+        #{custLevel,jdbcType=INTEGER},
+      </if>
+      <if test="custAttr != null">
+        #{custAttr,jdbcType=INTEGER},
+      </if>
+      <if test="custPhone != null">
+        #{custPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="custOldPhone != null">
+        #{custOldPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custAbbr != null">
+        #{custAbbr,jdbcType=VARCHAR},
+      </if>
+      <if test="custCompanyName != null">
+        #{custCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="custAddress != null">
+        #{custAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="countyCode != null">
+        #{countyCode,jdbcType=INTEGER},
+      </if>
+      <if test="custEmail != null">
+        #{custEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="legalName != null">
+        #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalIdentity != null">
+        #{legalIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="legalIdentityDate != null">
+        #{legalIdentityDate,jdbcType=VARCHAR},
+      </if>
+      <if test="custStatus != null">
+        #{custStatus,jdbcType=INTEGER},
+      </if>
+      <if test="modifyStatus != null">
+        #{modifyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="delStatus != null">
+        #{delStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entryUserId != null">
+        #{entryUserId,jdbcType=BIGINT},
+      </if>
+      <if test="operationUserId != null">
+        #{operationUserId,jdbcType=BIGINT},
+      </if>
+      <if test="operationTime != null">
+        #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bec.cloud.service.example.model.Customer">
+    update public.customer
+    <set>
+      <if test="custPid != null">
+        cust_pid = #{custPid,jdbcType=BIGINT},
+      </if>
+      <if test="custIid != null">
+        cust_iid = #{custIid,jdbcType=VARCHAR},
+      </if>
+      <if test="custCode != null">
+        cust_code = #{custCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pCustCode != null">
+        p_cust_code = #{pCustCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null">
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="custMcc != null">
+        cust_mcc = #{custMcc,jdbcType=VARCHAR},
+      </if>
+      <if test="custLevel != null">
+        cust_level = #{custLevel,jdbcType=INTEGER},
+      </if>
+      <if test="custAttr != null">
+        cust_attr = #{custAttr,jdbcType=INTEGER},
+      </if>
+      <if test="custPhone != null">
+        cust_phone = #{custPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="custOldPhone != null">
+        cust_old_phone = #{custOldPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        cust_name = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custAbbr != null">
+        cust_abbr = #{custAbbr,jdbcType=VARCHAR},
+      </if>
+      <if test="custCompanyName != null">
+        cust_company_name = #{custCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="custAddress != null">
+        cust_address = #{custAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="countyCode != null">
+        county_code = #{countyCode,jdbcType=INTEGER},
+      </if>
+      <if test="custEmail != null">
+        cust_email = #{custEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="legalName != null">
+        legal_name = #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalIdentity != null">
+        legal_identity = #{legalIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="legalIdentityDate != null">
+        legal_identity_date = #{legalIdentityDate,jdbcType=VARCHAR},
+      </if>
+      <if test="custStatus != null">
+        cust_status = #{custStatus,jdbcType=INTEGER},
+      </if>
+      <if test="modifyStatus != null">
+        modify_status = #{modifyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="delStatus != null">
+        del_status = #{delStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recordTime != null">
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entryUserId != null">
+        entry_user_id = #{entryUserId,jdbcType=BIGINT},
+      </if>
+      <if test="operationUserId != null">
+        operation_user_id = #{operationUserId,jdbcType=BIGINT},
+      </if>
+      <if test="operationTime != null">
+        operation_time = #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cust_id = #{custId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bec.cloud.service.example.model.Customer">
+    update public.customer
+    set cust_pid = #{custPid,jdbcType=BIGINT},
+      cust_iid = #{custIid,jdbcType=VARCHAR},
+      cust_code = #{custCode,jdbcType=VARCHAR},
+      p_cust_code = #{pCustCode,jdbcType=VARCHAR},
+      org_code = #{orgCode,jdbcType=VARCHAR},
+      cust_mcc = #{custMcc,jdbcType=VARCHAR},
+      cust_level = #{custLevel,jdbcType=INTEGER},
+      cust_attr = #{custAttr,jdbcType=INTEGER},
+      cust_phone = #{custPhone,jdbcType=VARCHAR},
+      cust_old_phone = #{custOldPhone,jdbcType=VARCHAR},
+      cust_name = #{custName,jdbcType=VARCHAR},
+      cust_abbr = #{custAbbr,jdbcType=VARCHAR},
+      cust_company_name = #{custCompanyName,jdbcType=VARCHAR},
+      cust_address = #{custAddress,jdbcType=VARCHAR},
+      county_code = #{countyCode,jdbcType=INTEGER},
+      cust_email = #{custEmail,jdbcType=VARCHAR},
+      legal_name = #{legalName,jdbcType=VARCHAR},
+      legal_identity = #{legalIdentity,jdbcType=VARCHAR},
+      legal_identity_date = #{legalIdentityDate,jdbcType=VARCHAR},
+      cust_status = #{custStatus,jdbcType=INTEGER},
+      modify_status = #{modifyStatus,jdbcType=INTEGER},
+      del_status = #{delStatus,jdbcType=INTEGER},
+      record_time = #{recordTime,jdbcType=TIMESTAMP},
+      entry_user_id = #{entryUserId,jdbcType=BIGINT},
+      operation_user_id = #{operationUserId,jdbcType=BIGINT},
+      operation_time = #{operationTime,jdbcType=TIMESTAMP}
+    where cust_id = #{custId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectCustomer" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from public.customer
+    where cust_code in (#{custCode,jdbcType=VARCHAR}) and cust_status=0 and del_status=0 <!-- and modify_status=1 -->
+  </select>
+</mapper>

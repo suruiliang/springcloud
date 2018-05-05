@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bec.cloud.service.example.mapper.AuthOrganizationMapper">
-  <resultMap id="BaseResultMap" type="com.bec.cloud.service.example.model.AuthOrganization">
+<mapper namespace="com.bec.cloud.service.example.mapper.OrganizationMapper">
+  <resultMap id="BaseResultMap" type="com.bec.cloud.service.example.model.Organization">
     <id column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="org_name" jdbcType="VARCHAR" property="orgName" />
     <result column="org_abbr" jdbcType="VARCHAR" property="orgAbbr" />
@@ -37,7 +37,7 @@
     delete from public.organization
     where org_id = #{orgId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.bec.cloud.service.example.model.AuthOrganization">
+  <insert id="insert" parameterType="com.bec.cloud.service.example.model.Organization">
     <selectKey keyProperty="orgId" order="BEFORE" resultType="java.lang.Long">
       select nextval('organization_id_seq')
     </selectKey>
@@ -56,7 +56,7 @@
       #{recordTime,jdbcType=TIMESTAMP}, #{entryUserId,jdbcType=BIGINT}, #{operationUserId,jdbcType=BIGINT}, 
       #{opretionTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.AuthOrganization">
+  <insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.Organization">
     <selectKey keyProperty="orgId" order="BEFORE" resultType="java.lang.Long">
       select nextval('organization_id_seq')
     </selectKey>
@@ -176,7 +176,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bec.cloud.service.example.model.AuthOrganization">
+  <update id="updateByPrimaryKeySelective" parameterType="com.bec.cloud.service.example.model.Organization">
     update public.organization
     <set>
       <if test="orgName != null">
@@ -236,7 +236,7 @@
     </set>
     where org_id = #{orgId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bec.cloud.service.example.model.AuthOrganization">
+  <update id="updateByPrimaryKey" parameterType="com.bec.cloud.service.example.model.Organization">
     update public.organization
     set org_name = #{orgName,jdbcType=VARCHAR},
       org_abbr = #{orgAbbr,jdbcType=VARCHAR},
@@ -259,10 +259,10 @@
     where org_id = #{orgId,jdbcType=BIGINT}
   </update>
   
-  <select id="selectAuthOrganization" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectOrganization" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from public.organization
-    where org_code in #{orgCode,jdbcType=VARCHAR} and org_status=0 and del_status=0
+    where org_code in (#{orgCode,jdbcType=VARCHAR}) and org_status=0 and del_status=0
   </select>
 </mapper>

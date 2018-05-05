@@ -43,6 +43,8 @@ public class UserInfo {
     
     private List<AuthRole> authRoles;
 
-    private List<AuthOrganization> authOrganizations;
+    private List<Organization> organizations;
+    
+    private List<Customer> customers;
 
 }
