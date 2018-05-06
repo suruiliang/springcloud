@@ -27,7 +27,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.stereotype.Component;
 
 import com.bec.cloud.auth.core.properties.SecurityProperties;
-import com.bec.cloud.auth.core.utils.ResultUtil;
+import com.bec.cloud.auth.core.support.Result;
 import com.bec.cloud.service.example.mapper.AuthLogMapper;
 import com.bec.cloud.service.example.mapper.AuthUserMapper;
 import com.bec.cloud.service.example.model.AuthLog;
@@ -98,7 +98,7 @@ public class BecAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 		}
 		response.setContentType("application/json;charset=UTF-8");
 		//		response.getWriter().write(objectMapper.writeValueAsString(token));
-		response.getWriter().write(objectMapper.writeValueAsString(ResultUtil.success(token)));
+		response.getWriter().write(objectMapper.writeValueAsString(Result.success(token)));
 
 	}	
 	private void insertAuthLog(HttpServletRequest request) {

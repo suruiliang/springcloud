@@ -1,9 +1,11 @@
 package com.bec.cloud.service.example.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 import com.bec.cloud.service.example.model.AuthUser;
 
+@Component("_authUserMapper")
 @Mapper
 public interface AuthUserMapper {
     int deleteByPrimaryKey(Long userId);

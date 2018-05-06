@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bec.cloud.service.example.mapper.Auth2RoleMapper">
+	<resultMap id="BaseResultMap" type="com.bec.cloud.service.example.model.Auth2Role">
+		<result column="url" jdbcType="VARCHAR" property="url" />
+		<result column="method" jdbcType="VARCHAR" property="method" />
+		<result column="roles" jdbcType="INTEGER" property="roles" />
+	</resultMap>
+	<select id="selectAuth2Roles" resultMap="BaseResultMap">
+		select auth.url,auth.method,array_to_string(group_concat(auth.roles),',')
+		roles from (
+		SELECT mb.btn_url url,mb.req_method method,r.role_code roles from
+		auth_menu_btn mb
+		LEFT JOIN auth_role_menu_btn rmb on mb.btn_id=rmb.btn_id and rmb.status=0
+		and rmb.del_status=0
+		LEFT JOIN auth_role r on r.role_id=rmb.role_id and r.del_status=0 and
+		r.role_status=0
+		WHERE mb.del_status=0 and mb.btn_status=0
+		UNION ALL
+		SELECT m.menu_url url,m.req_method method,r.role_code roles from auth_menu m
+		LEFT JOIN auth_role_menu_btn rmb on m.menu_id=rmb.menu_id and
+		rmb.status=0 and rmb.del_status=0
+		LEFT JOIN auth_role r on r.role_id=rmb.role_id and r.del_status=0 and
+		r.role_status=0
+		WHERE m.del_status=0 and m.menu_status=0
+		) auth
+		GROUP BY auth.url,auth.method
+	</select>
+</mapper>

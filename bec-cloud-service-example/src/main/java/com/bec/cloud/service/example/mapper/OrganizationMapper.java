@@ -3,9 +3,11 @@ package com.bec.cloud.service.example.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 import com.bec.cloud.service.example.model.Organization;
 
+@Component("_organizationMapper")
 @Mapper
 public interface OrganizationMapper {
     int deleteByPrimaryKey(Long orgId);

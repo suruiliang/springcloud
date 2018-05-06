@@ -28,7 +28,7 @@ public class UserInfoUtil {
 	private OrganizationMapper organizationMapper;
 	@Autowired
 	private CustomerMapper customerMapper;
-	
+
 	public UserInfo userInfo() {
 		UserInfo userInfo=new UserInfo();
 		String userName=SecurityUtils.getCurrentUserUsername();
@@ -54,6 +54,33 @@ public class UserInfoUtil {
 		if (customers!=null&&customers.size()>0) {
 			userInfo.setCustomers(customers);
 		}
+		return userInfo;
+	}
+	public UserInfo simpleUserInfo() {
+		UserInfo userInfo=new UserInfo();
+		String userName=SecurityUtils.getCurrentUserUsername();
+		userInfo.setUserName(userName);
+		AuthUser authUser=authUserMapper.selectAuthUserByUsername(userName);
+		if (authUser==null) {
+			return userInfo;
+		}
+		try {
+			BeanUtils.copyProperties(userInfo, authUser);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		/*List<AuthRole> authRoles=authRoleMapper.selectAuthRole(userName);
+		if (authRoles!=null&&authRoles.size()>0) {
+			userInfo.setAuthRoles(authRoles);
+		}
+		List<Organization> organizations=organizationMapper.selectOrganization(authUser.getOrgCode());
+		if (organizations!=null&&organizations.size()>0) {
+			userInfo.setOrganizations(organizations);
+		}
+		List<Customer> customers=customerMapper.selectCustomer(authUser.getCustCode());
+		if (customers!=null&&customers.size()>0) {
+			userInfo.setCustomers(customers);
+		}*/
 		return userInfo;
 	}
 }

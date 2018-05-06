@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bec.cloud.auth.core.exception.BecExceptionEnum;
 import com.bec.cloud.auth.core.support.Result;
 import com.bec.cloud.auth.core.utils.OSSUploadUtil;
-import com.bec.cloud.auth.core.utils.ResultUtil;
 
 /**
  * @author suruiliang
@@ -30,20 +29,20 @@ public class OssController {
 	
 	@GetMapping("/policy")
 	public Result<?> policy() throws UnsupportedEncodingException {
-		return ResultUtil.success(OSSUploadUtil.objectPolicy());
+		return Result.success(OSSUploadUtil.objectPolicy());
 	}
 	
 	@PostMapping(value="/upload")
 	public Result<String> upload( HttpServletRequest request,HttpServletResponse response,MultipartFile file) throws IOException {
 		if(file.isEmpty()) {
-			return ResultUtil.error(BecExceptionEnum.UNKNOWN_EXCEPTION);
+			return Result.error(BecExceptionEnum.UNKNOWN_EXCEPTION);
 		}
-		return ResultUtil.success(OSSUploadUtil.uploadFile(file.getInputStream(), OSSUploadUtil.BUCKET, OSSUploadUtil.DIR+"image/",file.getOriginalFilename()));
+		return Result.success(OSSUploadUtil.uploadFile(file.getInputStream(), OSSUploadUtil.BUCKET, OSSUploadUtil.DIR+"image/",file.getOriginalFilename()));
 	}
 	
 	@DeleteMapping(value="/remove")
 	public Result<String> remove(HttpServletRequest request,HttpServletResponse response,String fileUrl) {
 		boolean flag=OSSUploadUtil.deleteFile(fileUrl);
-		return ResultUtil.success(fileUrl+":删除"+(flag?"成功！":"失败！"));
+		return Result.success(fileUrl+":删除"+(flag?"成功！":"失败！"));
 	}
 }

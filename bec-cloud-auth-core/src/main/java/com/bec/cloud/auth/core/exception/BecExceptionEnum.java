@@ -7,7 +7,9 @@ package com.bec.cloud.auth.core.exception;
 */
 public enum BecExceptionEnum implements EnumType {
 	AUTHENTICATIONFAILURE_EXCEPTION(1001,"登录失败"),
-	UNKNOWN_EXCEPTION(1002,"未知错误");
+	UNKNOWN_EXCEPTION(1002,"未知错误"),
+	PASSWORD_EXCEPTION(1003,"密码错误"),
+	NORIGHT_EXCEPTION(1004,"无权限");
 	private Integer code;
 	private String msg;
 	

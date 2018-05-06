@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import com.bec.cloud.auth.core.exception.BecExceptionEnum;
 import com.bec.cloud.auth.core.properties.LoginType;
 import com.bec.cloud.auth.core.properties.SecurityProperties;
-import com.bec.cloud.auth.core.utils.ResultUtil;
+import com.bec.cloud.auth.core.support.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component(value="becAuthenticationFailureHandler")
@@ -34,7 +34,7 @@ public class BecAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
 		if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
 			//response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.setContentType("application/json;charset=UTF-8");
-			response.getWriter().write(objectMapper.writeValueAsString(ResultUtil.error(BecExceptionEnum.AUTHENTICATIONFAILURE_EXCEPTION)));
+			response.getWriter().write(objectMapper.writeValueAsString(Result.error(BecExceptionEnum.AUTHENTICATIONFAILURE_EXCEPTION)));
 		}else {
 			super.onAuthenticationFailure(request, response, exception);
 		}
