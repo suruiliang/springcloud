@@ -22,6 +22,7 @@ public class BecAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
+		response.setContentType("application/json; charset=utf-8");
 		response.getWriter().write(objectMapper.writeValueAsString(Result.error(HttpServletResponse.SC_UNAUTHORIZED,authException.getMessage())));
 	}
 

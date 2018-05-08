@@ -17,10 +17,11 @@
     <result column="org_name" jdbcType="VARCHAR" property="orgName" />
     <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
     <result column="opretion_time" jdbcType="TIMESTAMP" property="opretionTime" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
   </resultMap>
   <sql id="Base_Column_List">
     log_id, login_ip, login_time, user_id, cust_code, org_code, version, mac, soft_type, 
-    visit_module, user_name, cust_name, org_name, record_time, opretion_time
+    visit_module, user_name, cust_name, org_name, record_time, opretion_time,real_name
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -40,13 +41,14 @@
       user_id, cust_code, org_code, 
       version, mac, soft_type, 
       visit_module, user_name, cust_name, 
-      org_name, record_time, opretion_time
+      org_name, record_time, opretion_time,real_name
       )
     values (#{logId,jdbcType=BIGINT}, #{loginIp,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, 
       #{userId,jdbcType=BIGINT}, #{custCode,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, 
       #{version,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, #{softType,jdbcType=INTEGER}, 
       #{visitModule,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, 
-      #{orgName,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP}, #{opretionTime,jdbcType=TIMESTAMP}
+      #{orgName,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP}, #{opretionTime,jdbcType=TIMESTAMP},
+      #{realName,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.AuthLog">
@@ -98,6 +100,9 @@
       <if test="opretionTime != null">
         opretion_time,
       </if>
+      <if test="realName != null">
+        real_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       #{logId,jdbcType=BIGINT},
@@ -142,6 +147,9 @@
       </if>
       <if test="opretionTime != null">
         #{opretionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -190,6 +198,9 @@
       <if test="opretionTime != null">
         opretion_time = #{opretionTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
     </set>
     where log_id = #{logId,jdbcType=BIGINT}
   </update>
@@ -208,7 +219,8 @@
       cust_name = #{custName,jdbcType=VARCHAR},
       org_name = #{orgName,jdbcType=VARCHAR},
       record_time = #{recordTime,jdbcType=TIMESTAMP},
-      opretion_time = #{opretionTime,jdbcType=TIMESTAMP}
+      opretion_time = #{opretionTime,jdbcType=TIMESTAMP},
+      real_name = #{realName,jdbcType=VARCHAR}
     where log_id = #{logId,jdbcType=BIGINT}
   </update>
 </mapper>

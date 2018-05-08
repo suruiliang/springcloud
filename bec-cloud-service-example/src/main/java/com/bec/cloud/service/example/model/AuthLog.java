@@ -27,6 +27,8 @@ public class AuthLog {
     private String visitModule;
 
     private String userName;
+    
+    private String realName;
 
     private String custName;
 

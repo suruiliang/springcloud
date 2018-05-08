@@ -14,6 +14,7 @@ public class ControllerExceptionHandler {
 	@ExceptionHandler(value=Exception.class)
 	@ResponseBody
 	public Result<?> handleException(Exception ex) {
+		ex.printStackTrace();
 		if (ex instanceof BecException) {
 			return Result.error(((BecException)ex).getCode(),ex.getMessage());
 		}

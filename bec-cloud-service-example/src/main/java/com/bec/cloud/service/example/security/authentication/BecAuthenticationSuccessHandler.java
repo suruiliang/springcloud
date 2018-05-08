@@ -129,6 +129,7 @@ public class BecAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 		authLog.setSoftType(Integer.valueOf(request.getParameter("softType")+""));
 		authLog.setUserId(userInfo.getUserId());
 		authLog.setUserName(userInfo.getUserName());
+		authLog.setRealName(userInfo.getRealName());
 		authLog.setVersion(request.getParameter("version"));
 		authLog.setVisitModule(securityProperties.getVisitModule());
 		authLogMapper.insertSelective(authLog);
