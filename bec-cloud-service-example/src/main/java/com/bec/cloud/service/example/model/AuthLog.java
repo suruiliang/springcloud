@@ -36,6 +36,6 @@ public class AuthLog {
 
     private Date recordTime;
 
-    private Date opretionTime;
+    private Date operationTime;
 
 }

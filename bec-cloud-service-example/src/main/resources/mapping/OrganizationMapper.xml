@@ -20,12 +20,12 @@
     <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
     <result column="entry_user_id" jdbcType="BIGINT" property="entryUserId" />
     <result column="operation_user_id" jdbcType="BIGINT" property="operationUserId" />
-    <result column="opretion_time" jdbcType="TIMESTAMP" property="opretionTime" />
+    <result column="operation_time" jdbcType="TIMESTAMP" property="operationTime" />
   </resultMap>
   <sql id="Base_Column_List">
     org_id, org_name, org_abbr, org_code, org_phone, org_iid, p_org_code, legal_name, 
     legal_phone, bus_license, bus_license_photo, bus_address, registered_address, org_status, 
-    del_status, record_time, entry_user_id, operation_user_id, opretion_time
+    del_status, record_time, entry_user_id, operation_user_id, operation_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -47,14 +47,14 @@
       bus_license, bus_license_photo, bus_address, 
       registered_address, org_status, del_status, 
       record_time, entry_user_id, operation_user_id, 
-      opretion_time)
+      operation_time)
     values (#{orgId,jdbcType=BIGINT}, #{orgName,jdbcType=VARCHAR}, #{orgAbbr,jdbcType=VARCHAR}, 
       #{orgCode,jdbcType=VARCHAR}, #{orgPhone,jdbcType=VARCHAR}, #{orgIid,jdbcType=VARCHAR}, 
       #{pOrgCode,jdbcType=VARCHAR}, #{legalName,jdbcType=VARCHAR}, #{legalPhone,jdbcType=VARCHAR}, 
       #{busLicense,jdbcType=VARCHAR}, #{busLicensePhoto,jdbcType=VARCHAR}, #{busAddress,jdbcType=VARCHAR}, 
       #{registeredAddress,jdbcType=VARCHAR}, #{orgStatus,jdbcType=INTEGER}, #{delStatus,jdbcType=INTEGER}, 
       #{recordTime,jdbcType=TIMESTAMP}, #{entryUserId,jdbcType=BIGINT}, #{operationUserId,jdbcType=BIGINT}, 
-      #{opretionTime,jdbcType=TIMESTAMP})
+      #{operationTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.Organization">
     <selectKey keyProperty="orgId" order="BEFORE" resultType="java.lang.Long">
@@ -114,8 +114,8 @@
       <if test="operationUserId != null">
         operation_user_id,
       </if>
-      <if test="opretionTime != null">
-        opretion_time,
+      <if test="operationTime != null">
+        operation_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -171,8 +171,8 @@
       <if test="operationUserId != null">
         #{operationUserId,jdbcType=BIGINT},
       </if>
-      <if test="opretionTime != null">
-        #{opretionTime,jdbcType=TIMESTAMP},
+      <if test="operationTime != null">
+        #{operationTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -230,8 +230,8 @@
       <if test="operationUserId != null">
         operation_user_id = #{operationUserId,jdbcType=BIGINT},
       </if>
-      <if test="opretionTime != null">
-        opretion_time = #{opretionTime,jdbcType=TIMESTAMP},
+      <if test="operationTime != null">
+        operation_time = #{operationTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where org_id = #{orgId,jdbcType=BIGINT}
@@ -255,7 +255,7 @@
       record_time = #{recordTime,jdbcType=TIMESTAMP},
       entry_user_id = #{entryUserId,jdbcType=BIGINT},
       operation_user_id = #{operationUserId,jdbcType=BIGINT},
-      opretion_time = #{opretionTime,jdbcType=TIMESTAMP}
+      operation_time = #{operationTime,jdbcType=TIMESTAMP}
     where org_id = #{orgId,jdbcType=BIGINT}
   </update>
   

@@ -42,6 +42,6 @@ public class Organization {
 
     private Long operationUserId;
 
-    private Date opretionTime;
+    private Date operationTime;
 
 }

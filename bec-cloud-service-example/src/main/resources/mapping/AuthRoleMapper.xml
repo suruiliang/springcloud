@@ -12,11 +12,11 @@
     <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
     <result column="entry_user_id" jdbcType="BIGINT" property="entryUserId" />
     <result column="operation_user_id" jdbcType="BIGINT" property="operationUserId" />
-    <result column="opretion_time" jdbcType="TIMESTAMP" property="opretionTime" />
+    <result column="operation_time" jdbcType="TIMESTAMP" property="operationTime" />
   </resultMap>
   <sql id="Base_Column_List">
     role_id, role_pid, org_code, role_name, role_code, role_status, del_status, record_time, 
-    entry_user_id, operation_user_id, opretion_time
+    entry_user_id, operation_user_id, operation_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -35,11 +35,11 @@
     insert into public.auth_role (role_id, role_pid, org_code, 
       role_name, role_code, role_status, 
       del_status, record_time, entry_user_id, 
-      operation_user_id, opretion_time)
+      operation_user_id, operation_time)
     values (#{roleId,jdbcType=INTEGER}, #{rolePid,jdbcType=INTEGER}, #{orgCode,jdbcType=VARCHAR}, 
       #{roleName,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, #{roleStatus,jdbcType=INTEGER}, 
       #{delStatus,jdbcType=INTEGER}, #{recordTime,jdbcType=TIMESTAMP}, #{entryUserId,jdbcType=BIGINT}, 
-      #{operationUserId,jdbcType=BIGINT}, #{opretionTime,jdbcType=TIMESTAMP})
+      #{operationUserId,jdbcType=BIGINT}, #{operationTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.AuthRole">
     <selectKey keyProperty="roleId" order="BEFORE" resultType="java.lang.Integer">
@@ -75,8 +75,8 @@
       <if test="operationUserId != null">
         operation_user_id,
       </if>
-      <if test="opretionTime != null">
-        opretion_time,
+      <if test="operationTime != null">
+        operation_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -108,8 +108,8 @@
       <if test="operationUserId != null">
         #{operationUserId,jdbcType=BIGINT},
       </if>
-      <if test="opretionTime != null">
-        #{opretionTime,jdbcType=TIMESTAMP},
+      <if test="operationTime != null">
+        #{operationTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -143,8 +143,8 @@
       <if test="operationUserId != null">
         operation_user_id = #{operationUserId,jdbcType=BIGINT},
       </if>
-      <if test="opretionTime != null">
-        opretion_time = #{opretionTime,jdbcType=TIMESTAMP},
+      <if test="operationTime != null">
+        operation_time = #{operationTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where role_id = #{roleId,jdbcType=INTEGER}
@@ -160,7 +160,7 @@
       record_time = #{recordTime,jdbcType=TIMESTAMP},
       entry_user_id = #{entryUserId,jdbcType=BIGINT},
       operation_user_id = #{operationUserId,jdbcType=BIGINT},
-      opretion_time = #{opretionTime,jdbcType=TIMESTAMP}
+      operation_time = #{operationTime,jdbcType=TIMESTAMP}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
   
