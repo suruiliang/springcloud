@@ -15,7 +15,7 @@ public class BecException extends RuntimeException {
 		super(msg);
 		this.code = code;
 	}
-	public BecException(BecExceptionEnum exceptionEnum) {
+	public BecException(EnumType exceptionEnum) {
 		super(exceptionEnum.getMsg());
 		this.code = exceptionEnum.getCode();
 	}
