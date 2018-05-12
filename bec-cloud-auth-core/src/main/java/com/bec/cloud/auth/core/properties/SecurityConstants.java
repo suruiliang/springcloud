@@ -25,6 +25,10 @@ public interface SecurityConstants {
 	 */
 	public static final String DEFAULT_LOGIN_PROCESSING_URL_FORM = "/authentication/form";
 	/**
+	 * 默认的退出登录请求处理url
+	 */
+	public static final String DEFAULT_LOGOUT_PROCESSING_URL_FORM = "/authentication/logout";
+	/**
 	 * 默认的手机验证码登录请求处理url
 	 */
 	public static final String DEFAULT_LOGIN_PROCESSING_URL_MOBILE = "/authentication/mobile";

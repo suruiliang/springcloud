@@ -16,6 +16,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.codec.Base64;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
@@ -23,6 +24,8 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.TokenRequest;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -55,6 +58,8 @@ public class BecAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 	private AuthLogMapper authLogMapper;
 	@Autowired
 	private AuthUserMapper authUserMapper;
+	@Autowired
+	private TokenStore tokenStore;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -87,7 +92,17 @@ public class BecAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 		OAuth2Request oAuth2Request=tokenRequest.createOAuth2Request(clientDetails);
 
 		OAuth2Authentication oAuth2Authentication=new OAuth2Authentication(oAuth2Request, authentication);
-
+		//remove removeAccessToken and removeRefreshToken
+		if (securityProperties.getOauth2().getStrategy()==1) {
+			OAuth2AccessToken existingAccessToken = tokenStore.getAccessToken(oAuth2Authentication);
+			if (existingAccessToken != null) {
+				if (existingAccessToken.getRefreshToken() != null) {
+					tokenStore.removeRefreshToken(existingAccessToken.getRefreshToken());
+				}
+				tokenStore.removeAccessToken(existingAccessToken);
+			}
+		}
+		
 		OAuth2AccessToken token=authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
 		//插入登录日志,并更新用户表登录时间
 		try {
