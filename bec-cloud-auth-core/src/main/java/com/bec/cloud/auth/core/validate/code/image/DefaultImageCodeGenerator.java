@@ -50,6 +50,7 @@ public class DefaultImageCodeGenerator implements ImageCodeGenerator{
 			g.drawString(rand, 13 * i + 6, height - random.nextInt(6));
 		}
 		g.dispose();
+		System.out.println("imageCode="+sRand);
 		return new ImageCode(image, sRand, securityProperties.getCode().getImage().getExpireIn());
 	}
 	

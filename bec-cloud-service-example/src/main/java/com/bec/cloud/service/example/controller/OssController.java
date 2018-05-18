@@ -6,7 +6,6 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +39,7 @@ public class OssController {
 		return Result.success(OSSUploadUtil.uploadFile(file.getInputStream(), OSSUploadUtil.BUCKET, OSSUploadUtil.DIR+"image/",file.getOriginalFilename()));
 	}
 	
-	@DeleteMapping(value="/remove")
+	@PostMapping(value="/remove")
 	public Result<String> remove(HttpServletRequest request,HttpServletResponse response,String fileUrl) {
 		boolean flag=OSSUploadUtil.deleteFile(fileUrl);
 		return Result.success(fileUrl+":删除"+(flag?"成功！":"失败！"));
