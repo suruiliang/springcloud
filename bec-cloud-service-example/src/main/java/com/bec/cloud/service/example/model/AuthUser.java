@@ -39,5 +39,7 @@ public class AuthUser {
     private Date operationTime;
 
     private String userPhone;
+    
+    private String dotCode;
 
 }

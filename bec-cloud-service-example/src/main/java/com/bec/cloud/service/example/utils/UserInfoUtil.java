@@ -54,6 +54,7 @@ public class UserInfoUtil {
 		if (customers!=null&&customers.size()>0) {
 			userInfo.setCustomers(customers);
 		}
+		//TODO CustDots
 		return userInfo;
 	}
 	public UserInfo simpleUserInfo() {

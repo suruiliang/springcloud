@@ -41,10 +41,14 @@ public class UserInfo {
 
     private String userPhone;
     
+    private String dotCode;
+    
     private List<AuthRole> authRoles;
 
     private List<Organization> organizations;
     
     private List<Customer> customers;
+    
+    //TODO CustDots
 
 }
