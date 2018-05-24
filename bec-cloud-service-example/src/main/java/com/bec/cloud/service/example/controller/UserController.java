@@ -11,6 +11,7 @@ import com.bec.cloud.auth.core.utils.SecurityUtils;
 
 @RestController(value="_userController")
 public class UserController {
+
 	private Logger logger=LoggerFactory.getLogger(getClass());
 
 	@GetMapping(value = "/me")
@@ -19,4 +20,6 @@ public class UserController {
 		logger.info("authentication="+authentication.getPrincipal());
 		return Result.success(authentication);
 	}
+
+
 }

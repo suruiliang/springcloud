@@ -8,6 +8,9 @@
 		<relativePath>../bec-cloud-parent</relativePath>
 	</parent>
 	<artifactId>bec-cloud-auth-core</artifactId>
+	<properties>
+		<quartz.version>2.2.3</quartz.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -118,6 +121,16 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
+		</dependency>
+		<!-- quartz http://www.quartz-scheduler.org/downloads/-->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>${quartz.version}</version>
 		</dependency>
 	</dependencies>
 </project>

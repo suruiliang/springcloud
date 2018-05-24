@@ -18,7 +18,6 @@ import com.bec.cloud.service.example.security.service.BecUserDetailsService;
 * @ClassName 类名称
 * @Description 类描述
 */
-@SuppressWarnings("deprecation")
 @Configuration
 public class BecSecurityBeanConfig {
 	
