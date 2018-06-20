@@ -63,3 +63,9 @@ hs_err_pid*
 /bec-cloud-zuul/bin
 /bec-cloud-zuul/target
 /bec-cloud-zuul/.classpath
+/bec-cloud-service-simple/.springBeans
+/bec-cloud-service-simple/.settings
+/bec-cloud-service-simple/bin
+/bec-cloud-service-simple/.classpath
+/bec-cloud-service-simple/.project
+/bec-cloud-service-simple/target

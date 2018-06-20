@@ -32,5 +32,8 @@ public class Constant {
 		public final static int UN_FUYOU_AUDIT=3;
 		public final static int FUYOU_AUDIT_ACCEPT=4;
 		public final static int FUYOU_AUDIT_REJECTED=5;
+		public final static int UN_DZF_AUDIT=6;
+		public final static int DZF_AUDIT_ACCEPT=7;
+		public final static int DZF_AUDIT_REJECTED=8;
 	}
 }

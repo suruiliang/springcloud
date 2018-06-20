@@ -64,5 +64,6 @@
 		<module>../bec-cloud-service-demo2</module>
 		<module>../bec-cloud-auth-core</module>
 		<module>../bec-cloud-service-example</module>
+		<module>../bec-cloud-service-simple</module>
 	</modules>
 </project>
