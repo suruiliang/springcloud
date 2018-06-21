@@ -120,12 +120,16 @@ public class BecAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 		UserInfo userInfo=userInfoUtil.userInfo();
 		authLog.setCustCode(userInfo.getCustCode());
 		authLog.setCustName("");
+		authLog.setCustPhone("");
 		if (userInfo.getCustomers()!=null&&userInfo.getCustomers().size()>0) {
-			StringBuffer custName=new StringBuffer();
+			StringBuilder custName=new StringBuilder();
+			StringBuilder custPhone=new StringBuilder();
 			for (Customer c : userInfo.getCustomers()) {
 				custName.append(","+c.getCustName());
+				custPhone.append(","+c.getCustPhone());
 			}
 			authLog.setCustName(custName.substring(1));
+			authLog.setCustPhone(custPhone.substring(1));
 		}
 		authLog.setLoginIp(request.getRemoteHost());
 		authLog.setLoginTime(new Date());

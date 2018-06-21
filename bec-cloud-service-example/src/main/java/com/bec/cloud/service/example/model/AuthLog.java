@@ -6,6 +6,8 @@ import lombok.Data;
 
 @Data
 public class AuthLog {
+	private String custPhone;//商户账号
+	
     private Long logId;
 
     private String loginIp;

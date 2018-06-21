@@ -1,226 +1,243 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bec.cloud.service.example.mapper.AuthLogMapper">
-  <resultMap id="BaseResultMap" type="com.bec.cloud.service.example.model.AuthLog">
-    <id column="log_id" jdbcType="BIGINT" property="logId" />
-    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
-    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="cust_code" jdbcType="VARCHAR" property="custCode" />
-    <result column="org_code" jdbcType="VARCHAR" property="orgCode" />
-    <result column="version" jdbcType="VARCHAR" property="version" />
-    <result column="mac" jdbcType="VARCHAR" property="mac" />
-    <result column="soft_type" jdbcType="INTEGER" property="softType" />
-    <result column="visit_module" jdbcType="VARCHAR" property="visitModule" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
-    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
-    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
-    <result column="operation_time" jdbcType="TIMESTAMP" property="operationTime" />
-    <result column="real_name" jdbcType="VARCHAR" property="realName" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    log_id, login_ip, login_time, user_id, cust_code, org_code, version, mac, soft_type, 
-    visit_module, user_name, cust_name, org_name, record_time, operation_time,real_name
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from public.auth_log
-    where log_id = #{logId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from public.auth_log
-    where log_id = #{logId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.bec.cloud.service.example.model.AuthLog">
-    <selectKey keyProperty="logId" order="BEFORE" resultType="java.lang.Long">
-      select nextval('auth_log_id_seq')
-    </selectKey>
-    insert into public.auth_log (log_id, login_ip, login_time, 
-      user_id, cust_code, org_code, 
-      version, mac, soft_type, 
-      visit_module, user_name, cust_name, 
-      org_name, record_time, operation_time,real_name
-      )
-    values (#{logId,jdbcType=BIGINT}, #{loginIp,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, 
-      #{userId,jdbcType=BIGINT}, #{custCode,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR}, 
-      #{version,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, #{softType,jdbcType=INTEGER}, 
-      #{visitModule,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, 
-      #{orgName,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP}, #{operationTime,jdbcType=TIMESTAMP},
-      #{realName,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.AuthLog">
-    <selectKey keyProperty="logId" order="BEFORE" resultType="java.lang.Long">
-      select nextval('auth_log_id_seq')
-    </selectKey>
-    insert into public.auth_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      log_id,
-      <if test="loginIp != null">
-        login_ip,
-      </if>
-      <if test="loginTime != null">
-        login_time,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="custCode != null">
-        cust_code,
-      </if>
-      <if test="orgCode != null">
-        org_code,
-      </if>
-      <if test="version != null">
-        version,
-      </if>
-      <if test="mac != null">
-        mac,
-      </if>
-      <if test="softType != null">
-        soft_type,
-      </if>
-      <if test="visitModule != null">
-        visit_module,
-      </if>
-      <if test="userName != null">
-        user_name,
-      </if>
-      <if test="custName != null">
-        cust_name,
-      </if>
-      <if test="orgName != null">
-        org_name,
-      </if>
-      <if test="recordTime != null">
-        record_time,
-      </if>
-      <if test="operationTime != null">
-        operation_time,
-      </if>
-      <if test="realName != null">
-        real_name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      #{logId,jdbcType=BIGINT},
-      <if test="loginIp != null">
-        #{loginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="loginTime != null">
-        #{loginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="custCode != null">
-        #{custCode,jdbcType=VARCHAR},
-      </if>
-      <if test="orgCode != null">
-        #{orgCode,jdbcType=VARCHAR},
-      </if>
-      <if test="version != null">
-        #{version,jdbcType=VARCHAR},
-      </if>
-      <if test="mac != null">
-        #{mac,jdbcType=VARCHAR},
-      </if>
-      <if test="softType != null">
-        #{softType,jdbcType=INTEGER},
-      </if>
-      <if test="visitModule != null">
-        #{visitModule,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="custName != null">
-        #{custName,jdbcType=VARCHAR},
-      </if>
-      <if test="orgName != null">
-        #{orgName,jdbcType=VARCHAR},
-      </if>
-      <if test="recordTime != null">
-        #{recordTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="operationTime != null">
-        #{operationTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="realName != null">
-        #{realName,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bec.cloud.service.example.model.AuthLog">
-    update public.auth_log
-    <set>
-      <if test="loginIp != null">
-        login_ip = #{loginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="loginTime != null">
-        login_time = #{loginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="custCode != null">
-        cust_code = #{custCode,jdbcType=VARCHAR},
-      </if>
-      <if test="orgCode != null">
-        org_code = #{orgCode,jdbcType=VARCHAR},
-      </if>
-      <if test="version != null">
-        version = #{version,jdbcType=VARCHAR},
-      </if>
-      <if test="mac != null">
-        mac = #{mac,jdbcType=VARCHAR},
-      </if>
-      <if test="softType != null">
-        soft_type = #{softType,jdbcType=INTEGER},
-      </if>
-      <if test="visitModule != null">
-        visit_module = #{visitModule,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="custName != null">
-        cust_name = #{custName,jdbcType=VARCHAR},
-      </if>
-      <if test="orgName != null">
-        org_name = #{orgName,jdbcType=VARCHAR},
-      </if>
-      <if test="recordTime != null">
-        record_time = #{recordTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="operationTime != null">
-        operation_time = #{operationTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="realName != null">
-        real_name = #{realName,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where log_id = #{logId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.bec.cloud.service.example.model.AuthLog">
-    update public.auth_log
-    set login_ip = #{loginIp,jdbcType=VARCHAR},
-      login_time = #{loginTime,jdbcType=TIMESTAMP},
-      user_id = #{userId,jdbcType=BIGINT},
-      cust_code = #{custCode,jdbcType=VARCHAR},
-      org_code = #{orgCode,jdbcType=VARCHAR},
-      version = #{version,jdbcType=VARCHAR},
-      mac = #{mac,jdbcType=VARCHAR},
-      soft_type = #{softType,jdbcType=INTEGER},
-      visit_module = #{visitModule,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR},
-      cust_name = #{custName,jdbcType=VARCHAR},
-      org_name = #{orgName,jdbcType=VARCHAR},
-      record_time = #{recordTime,jdbcType=TIMESTAMP},
-      operation_time = #{operationTime,jdbcType=TIMESTAMP},
-      real_name = #{realName,jdbcType=VARCHAR}
-    where log_id = #{logId,jdbcType=BIGINT}
-  </update>
+	<resultMap id="BaseResultMap" type="com.bec.cloud.service.example.model.AuthLog">
+		<id column="log_id" jdbcType="BIGINT" property="logId" />
+		<result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+		<result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+		<result column="user_id" jdbcType="BIGINT" property="userId" />
+		<result column="cust_code" jdbcType="VARCHAR" property="custCode" />
+		<result column="org_code" jdbcType="VARCHAR" property="orgCode" />
+		<result column="version" jdbcType="VARCHAR" property="version" />
+		<result column="mac" jdbcType="VARCHAR" property="mac" />
+		<result column="soft_type" jdbcType="INTEGER" property="softType" />
+		<result column="visit_module" jdbcType="VARCHAR" property="visitModule" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="cust_name" jdbcType="VARCHAR" property="custName" />
+		<result column="org_name" jdbcType="VARCHAR" property="orgName" />
+		<result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+		<result column="operation_time" jdbcType="TIMESTAMP" property="operationTime" />
+		<result column="real_name" jdbcType="VARCHAR" property="realName" />
+		<result column="cust_phone" jdbcType="VARCHAR" property="custPhone" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		log_id, login_ip, login_time, user_id, cust_code, org_code, version, mac,
+		soft_type,
+		visit_module, user_name, cust_name, org_name, record_time,
+		operation_time,real_name,cust_phone
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from public.auth_log
+		where log_id = #{logId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from public.auth_log
+		where log_id = #{logId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.bec.cloud.service.example.model.AuthLog">
+		<selectKey keyProperty="logId" order="BEFORE" resultType="java.lang.Long">
+			select nextval('auth_log_id_seq')
+		</selectKey>
+		insert into public.auth_log (log_id, login_ip, login_time,
+		user_id, cust_code, org_code,
+		version, mac, soft_type,
+		visit_module, user_name, cust_name,
+		org_name, record_time, operation_time,real_name,cust_phone
+		)
+		values (#{logId,jdbcType=BIGINT}, #{loginIp,jdbcType=VARCHAR},
+		#{loginTime,jdbcType=TIMESTAMP},
+		#{userId,jdbcType=BIGINT}, #{custCode,jdbcType=VARCHAR}, #{orgCode,jdbcType=VARCHAR},
+		#{version,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR},
+		#{softType,jdbcType=INTEGER},
+		#{visitModule,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR},
+		#{orgName,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP},
+		#{operationTime,jdbcType=TIMESTAMP},
+		#{realName,jdbcType=VARCHAR},#{custPhone,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.bec.cloud.service.example.model.AuthLog">
+		<selectKey keyProperty="logId" order="BEFORE" resultType="java.lang.Long">
+			select nextval('auth_log_id_seq')
+		</selectKey>
+		insert into public.auth_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			log_id,
+			<if test="loginIp != null">
+				login_ip,
+			</if>
+			<if test="loginTime != null">
+				login_time,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="custCode != null">
+				cust_code,
+			</if>
+			<if test="orgCode != null">
+				org_code,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="mac != null">
+				mac,
+			</if>
+			<if test="softType != null">
+				soft_type,
+			</if>
+			<if test="visitModule != null">
+				visit_module,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="custName != null">
+				cust_name,
+			</if>
+			<if test="orgName != null">
+				org_name,
+			</if>
+			<if test="recordTime != null">
+				record_time,
+			</if>
+			<if test="operationTime != null">
+				operation_time,
+			</if>
+			<if test="realName != null">
+				real_name,
+			</if>
+			<if test="custPhone != null">
+				cust_phone,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{logId,jdbcType=BIGINT},
+			<if test="loginIp != null">
+				#{loginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="loginTime != null">
+				#{loginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="custCode != null">
+				#{custCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orgCode != null">
+				#{orgCode,jdbcType=VARCHAR},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=VARCHAR},
+			</if>
+			<if test="mac != null">
+				#{mac,jdbcType=VARCHAR},
+			</if>
+			<if test="softType != null">
+				#{softType,jdbcType=INTEGER},
+			</if>
+			<if test="visitModule != null">
+				#{visitModule,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="custName != null">
+				#{custName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgName != null">
+				#{orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="recordTime != null">
+				#{recordTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="operationTime != null">
+				#{operationTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="realName != null">
+				#{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="custPhone != null">
+				#{custPhone,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bec.cloud.service.example.model.AuthLog">
+		update public.auth_log
+		<set>
+			<if test="loginIp != null">
+				login_ip = #{loginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="loginTime != null">
+				login_time = #{loginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="custCode != null">
+				cust_code = #{custCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orgCode != null">
+				org_code = #{orgCode,jdbcType=VARCHAR},
+			</if>
+			<if test="version != null">
+				version = #{version,jdbcType=VARCHAR},
+			</if>
+			<if test="mac != null">
+				mac = #{mac,jdbcType=VARCHAR},
+			</if>
+			<if test="softType != null">
+				soft_type = #{softType,jdbcType=INTEGER},
+			</if>
+			<if test="visitModule != null">
+				visit_module = #{visitModule,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="custName != null">
+				cust_name = #{custName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgName != null">
+				org_name = #{orgName,jdbcType=VARCHAR},
+			</if>
+			<if test="recordTime != null">
+				record_time = #{recordTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="operationTime != null">
+				operation_time = #{operationTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="realName != null">
+				real_name = #{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="custPhone != null">
+				cust_phone = #{custPhone,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where log_id = #{logId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bec.cloud.service.example.model.AuthLog">
+		update public.auth_log
+		set login_ip = #{loginIp,jdbcType=VARCHAR},
+		login_time = #{loginTime,jdbcType=TIMESTAMP},
+		user_id = #{userId,jdbcType=BIGINT},
+		cust_code = #{custCode,jdbcType=VARCHAR},
+		org_code = #{orgCode,jdbcType=VARCHAR},
+		version = #{version,jdbcType=VARCHAR},
+		mac = #{mac,jdbcType=VARCHAR},
+		soft_type = #{softType,jdbcType=INTEGER},
+		visit_module = #{visitModule,jdbcType=VARCHAR},
+		user_name = #{userName,jdbcType=VARCHAR},
+		cust_name = #{custName,jdbcType=VARCHAR},
+		org_name = #{orgName,jdbcType=VARCHAR},
+		record_time = #{recordTime,jdbcType=TIMESTAMP},
+		operation_time = #{operationTime,jdbcType=TIMESTAMP},
+		real_name = #{realName,jdbcType=VARCHAR},
+		cust_phone = #{custPhone,jdbcType=VARCHAR}
+		where log_id = #{logId,jdbcType=BIGINT}
+	</update>
 </mapper>
